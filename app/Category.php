@@ -8,7 +8,11 @@ class Category extends Model {
 		return $this->hasMany(Book::class);
 	}
 	public function getNumBooksAttribute() {
-		return $this->books->count();
+		//return count($this->books);
+		return count($this->books->where('status', 'public'));
+	}
+	public function getBooksPublicAttribute() {
+		return $this->books->where('status', 'public');
 	}
 
 }

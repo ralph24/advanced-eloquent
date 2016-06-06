@@ -32,7 +32,10 @@ Route::delete('destroy', function (Request $request) {
 });
 
 Route::get('/category', function () {
-	$categories = Category::Has('books')->get();
+	//$categories = Category::Has('books')->get();
+	$categories = Category::WhereHas('books', function ($query) {
+		$query->where('status', 'public');
+	})->get();
 
 	return view('relationship', compact('categories'));
 });
